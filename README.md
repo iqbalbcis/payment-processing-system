@@ -1,5 +1,5 @@
 # payment-processing-system
-This a simple payment processing system where user can see the account balance, user can deposit money and pay money into account. This API is written in Java, Hibernate JPA, Spring Boot and Spring Security that handles security for this API. To run payment-processing-system, you will be required Java version 21 & version supported IDE, build tool Maven and MySQL database. To run test cases, you will require Junit5, Mockito, MockMvc, MySQLContainer and Docker. To use this application, please, find some permissible users in security configuration as we used here in memory user details management. 
+This a simple payment processing system where user can see the account balance, user can deposit money and pay money into account. This API is written in Java, Hibernate JPA, Spring Boot and Spring Security that handles security for this API. To run payment-processing-system, you will be required Java version 21 & version supported IDE, build tool Maven and MySQL database. To run test cases, you will be required Junit5, Mockito, MockMvc, MySQLContainer and Docker. To use this application, please, find some permissible users in the security configuration as we used here in memory user details management. 
 
 ## Technologies 
    - Java: jdk version 21
