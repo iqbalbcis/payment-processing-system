@@ -62,21 +62,25 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = NoSuchElementException.class)
     public final ResponseEntity<String> handleNoSuchElementException(NoSuchElementException ex) {
+        log.error("error: {}", ex.getMessage(), ex);
         return new ResponseEntity<> ("Element not found", HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<String> handleUserExists(UserAlreadyExistsException ex) {
+        log.error("error: {}", ex.getMessage(), ex);
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(InsufficientFundsException.class)
     public ResponseEntity<String> handleInsufficientFunds(InsufficientFundsException ex) {
+        log.error("error: {}", ex.getMessage(), ex);
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(InvalidPaymentException.class)
     public ResponseEntity<String> handleInvalidPayment(InvalidPaymentException ex) {
+        log.error("error: {}", ex.getMessage(), ex);
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
