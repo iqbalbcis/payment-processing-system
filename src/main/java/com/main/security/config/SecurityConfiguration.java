@@ -1,5 +1,7 @@
 package com.main.security.config;
 
+import com.main.security.exception.CustomAuthenticationEntryPoint;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -17,13 +19,18 @@ import static org.springframework.http.HttpMethod.POST;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@RequiredArgsConstructor
 public class SecurityConfiguration {
+
+    private final CustomAuthenticationEntryPoint authenticationEntryPoint;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         // Disable CSRF for non-browser clients
         http.csrf(csrf-> csrf.disable());
+        http.exceptionHandling(exp ->
+                exp.authenticationEntryPoint(authenticationEntryPoint));
 
         http.authorizeHttpRequests(auth->
                 auth.requestMatchers(POST, "/api/user/create-user")
