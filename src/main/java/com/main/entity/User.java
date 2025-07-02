@@ -14,9 +14,15 @@ import lombok.NoArgsConstructor;
 public class User extends Auditable {
 
     @Id
-    @Column(name = "account_number", length = 8)
+    @Column(length = 8)
     private Long accountNumber;
+
+    @Column(nullable = false)
     private String email;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private double balance;
 }

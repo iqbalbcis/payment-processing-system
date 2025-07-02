@@ -1,17 +1,23 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/payment_system?autoReconnect=true&useUnicode=yes&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/payment_system?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: root
-    password: Matlab009cxnakhi123
+    password: test
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 3600000
 
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
-      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
       naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
     show-sql: true
     open-in-view: false
     properties:

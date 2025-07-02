@@ -23,13 +23,17 @@ public class Transaction extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "from_user_account", length = 8)
+    @Column(length = 8, nullable = false)
     private Long fromUserAccount;
-    @Column(name = "to_user_account", length = 8)
+
+    @Column(length = 8, nullable = false)
     private Long toUserAccount;
+
+    @Column(nullable = false)
     private double amount;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private TransactionType type;
 
     @JsonFormat(timezone = UTC_TIME_ZONE)
