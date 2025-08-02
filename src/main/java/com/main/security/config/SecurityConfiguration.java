@@ -4,10 +4,12 @@ import com.main.security.exception.CustomAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -37,7 +39,7 @@ public class SecurityConfiguration {
                         .hasRole("ADMIN")
                         .anyRequest().authenticated());
 
-       // http.formLogin(Customizer.withDefaults());
+       //http.formLogin(Customizer.withDefaults());
         http.httpBasic(Customizer.withDefaults());
 
         return http.build();
@@ -56,5 +58,23 @@ public class SecurityConfiguration {
                 .build();
 
         return new InMemoryUserDetailsManager(admin, user);
+    }
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring()
+                .requestMatchers(HttpMethod.OPTIONS, "/**")
+                .requestMatchers("/v3/api-docs",
+                        "/configuration/ui",
+                        "/v3/api-docs/swagger-config",
+                        "/swagger-resources/**",
+                        "/configuration/security",
+                        "/swagger-ui/**",
+                        "/webjars/**",
+                        "/css/**",
+                        "/js/**",
+                        "/img/**",
+                        "/lib/**",
+                        "/favicon.ico");
     }
 }

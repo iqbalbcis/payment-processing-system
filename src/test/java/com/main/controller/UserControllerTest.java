@@ -22,6 +22,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class UserControllerTest {
 
+    private static final String BASE_URL_FOR_CREATE_USER = "/api/user/create-user";
+    private static final String BASE_URL_FOR_FIND_ALL_USER = "/api/user/users";
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -50,7 +53,7 @@ public class UserControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         String userJson = mapper.writeValueAsString(getUser());
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/user/create-user")
+        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL_FOR_CREATE_USER)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userJson))
                 .andExpect(status().isCreated())
@@ -61,7 +64,7 @@ public class UserControllerTest {
     @Test
     @WithMockUser(username = "user", roles = "USER")
     public void testFindAllUsers() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/user/users"))
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL_FOR_FIND_ALL_USER))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }

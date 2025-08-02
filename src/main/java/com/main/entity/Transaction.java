@@ -23,7 +23,7 @@ public class Transaction extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 8, nullable = false)
+    @Column(length = 8)
     private Long fromUserAccount;
 
     @Column(length = 8, nullable = false)

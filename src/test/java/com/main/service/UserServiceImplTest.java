@@ -6,8 +6,6 @@ import com.main.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
@@ -19,10 +17,8 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
 
-    @Mock
     private UserRepository userRepository;
 
-    @InjectMocks
     private UserServiceImpl userService;
 
     User user = null;
@@ -30,6 +26,8 @@ class UserServiceImplTest {
     @BeforeEach
     public void setup() {
         user = getUser();
+        userRepository = mock(UserRepository.class);
+        userService = new UserServiceImpl(userRepository);
     }
 
     @Test
@@ -57,7 +55,7 @@ class UserServiceImplTest {
 
     private User getUser() {
         User user = new User();
-        user.setAccountNumber(12345678L);
+        user.setAccountNumber(1234567L);
         user.setName("Jane Doe");
         user.setEmail("abc@gmail.com");
         user.setBalance(12500);

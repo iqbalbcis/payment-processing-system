@@ -24,9 +24,6 @@ public class TransactionServiceImpl implements TransactionService {
     private final TransactionRepository transactionRepository;
     private final UserRepository userRepository;
 
-
-
-
     @Transactional
     @Override
     public boolean deposit(Long accountNumber, double amount) {

@@ -13,4 +13,18 @@ import org.springframework.context.annotation.Configuration;
         title = "Payment Processing API", version = "v1"))
 public class OpeApiConfig {
 
+    @Bean
+    public OpenAPI customOpenAPI() {
+        final String securitySchemeName = "basicAuth";
+
+        return new OpenAPI()
+               // .info(new Info().title("My API").version("1.0"))
+                .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
+                .components(new Components()
+                        .addSecuritySchemes(securitySchemeName,
+                                new SecurityScheme()
+                                        .name(securitySchemeName)
+                                        .type(SecurityScheme.Type.HTTP)
+                                        .scheme("basic")));
+    }
 }

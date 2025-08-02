@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.main.constants.CommonConstant.*;
+
 @RestController
 @RequestMapping(value = "/api/transaction")
 @RequiredArgsConstructor
@@ -30,8 +32,15 @@ public class TransactionController {
     public ResponseEntity<String> deposit(@PathVariable(value = "accountNumber")
                                               Long accountNumber,
                                          @PathVariable(value = "amount") double amount) {
+        if (String.valueOf(accountNumber).length() != 8) {
+            return ResponseEntity.badRequest().body(INVALID_ACCOUNT_NUMBER);
+        }
+
+        if (amount <= 0) {
+            return ResponseEntity.badRequest().body(INVALID_AMOUNT);
+        }
         String result = transactionService.deposit(accountNumber, amount) ?
-                "Deposit successful." : "Deposit failed.";
+                PAYMENT_SUCCESSFUL : PAYMENT_FAILURE;
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
@@ -45,8 +54,17 @@ public class TransactionController {
             @PathVariable(value = "fromAccount") Long fromAccount,
                       @PathVariable(value = "toAccount") Long toAccount,
                       @PathVariable(value = "amount") double amount) {
+
+        if (String.valueOf(fromAccount).length() != 8
+                || String.valueOf(toAccount).length() != 8) {
+            return ResponseEntity.badRequest().body(INVALID_ACCOUNT_NUMBER);
+        }
+
+        if (amount <= 0) {
+            return ResponseEntity.badRequest().body(INVALID_AMOUNT);
+        }
         String result = transactionService.pay(fromAccount, toAccount, amount) ?
-                "Payment successful." : "Payment failed.";
+                PAYMENT_SUCCESSFUL : PAYMENT_FAILURE;
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
